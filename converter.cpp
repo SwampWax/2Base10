@@ -10,7 +10,7 @@ intu convertToDecimal(char* conversionValue,intu sourceBase)
 	for (int i = 1; i <= valueLength; ++i)
 	{
 		char swapChar = conversionValue[valueLength-i];
-		if (swapChar >= 97 /*a*/ || swapChar <= 122 /*z*/)
+		if ((swapChar >= 97) /*a*/ && (swapChar <= 122 /*z*/))
 		{
 			swapChar-=32; // make it uppercase
 		}
@@ -43,7 +43,7 @@ intu convertToDecimal(char* conversionValue,intu sourceBase)
 	}
 	while (1)
 	{
-		thisChar = *reverseValue++; counter++;
+		thisChar = *reverseValue++;
 		if (thisChar >= 65 /*A*/ && thisChar <= 90 /*Z*/)
 		{
 			thisChar -= 7;
@@ -58,7 +58,9 @@ intu convertToDecimal(char* conversionValue,intu sourceBase)
 			fprintf(stderr,"Digit %u is too big for the specified base %u!\n",char2Num,sourceBase);
 			exit(ERR_OUTOFRANGE);
 		}
+		//c = m * (bas1 ^ (-conv + LEN(num1$)))
 		runningTotal += char2Num * pow(sourceBase,counter);
+		counter++;
 	}
 	return runningTotal; 
 }
